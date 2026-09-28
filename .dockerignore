@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+venv
+__pycache__
+*.py[cod]
+*.sqlite3
+*.sqlite3-journal
+.env
+.idea
+.vscode
+.pytest_cache
+.DS_Store
+staticfiles
+media
+*.log

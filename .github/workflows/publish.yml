@@ -11,6 +11,20 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: booking
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-postgres-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d booking"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
 
@@ -24,6 +38,11 @@ jobs:
         env:
           SECRET_KEY: ci-only-test-key-with-at-least-fifty-random-looking-characters
           DEBUG: '0'
+          POSTGRES_DB: booking
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-postgres-password
+          POSTGRES_HOST: 127.0.0.1
+          POSTGRES_PORT: '5432'
         run: |
           python -m pip install -r requirements.txt
           python manage.py test

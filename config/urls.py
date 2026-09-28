@@ -33,4 +33,5 @@ urlpatterns = [
     # API Endpoints
     path('api/auth/', include('apps.accounts.urls')),
     path('api/', include('apps.services.urls')),
+    path('api/', include('apps.bookings.urls')),
 ]
